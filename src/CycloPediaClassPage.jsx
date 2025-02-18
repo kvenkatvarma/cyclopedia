@@ -5,7 +5,7 @@ class CycloPediaClassPage extends React.Component{
         constructor(props)
         {
             super(props);
-            this.state ={
+            this.state = JSON.parse(localStorage.getItem("cyclopediaState")) || {
                 instructor: undefined,
                 studentList:[],
                 studentCount:0,
@@ -17,6 +17,11 @@ class CycloPediaClassPage extends React.Component{
 componentDidMount=async()=>
 {
     console.log("Component Did Mount");
+    if(JSON.parse(localStorage.getItem("cyclopediaState")))
+    {
+      //  this.setState(JSON.parse(localStorage.getItem("cyclopediaState")));
+    }
+    else{
     const response = await getRandomUser();
     this.setState((prevstate)=>{
         return{
@@ -26,10 +31,12 @@ componentDidMount=async()=>
                 phone: response.data.phone_number,
             }
         }
-    })   
+    }) 
+}  
 }
 componentDidUpdate(){
     console.log("Component Did Update");
+    localStorage.setItem("cyclopediaState",JSON.stringify(this.state));
 
 }
 componentWillUnmount()
