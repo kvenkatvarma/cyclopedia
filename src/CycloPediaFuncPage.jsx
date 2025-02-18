@@ -1,4 +1,4 @@
-import React,{Component, useState} from "react";
+import React,{Component, useEffect, useState} from "react";
 import {getRandomUser} from "./Utility/api";
 import Instructor from "./Instructor";
 
@@ -20,6 +20,26 @@ const CycloPediaFuncPage =()=>{
    const [inputFeedback, setInputFeedback] = useState(()=>{
       return "";
     });
+
+
+    useEffect(()=>{
+        console.log("This will be called on every render");
+    });
+
+    useEffect(()=>{
+        console.log("This will be called on initial/first render/mount");
+    },[]);
+
+    useEffect(()=>{
+        console.log("This will be called on whenever value of inputFeedback changes");
+    },[inputFeedback]);
+
+    useEffect(()=>{
+        console.log("This will be called on initial/first render/mount");
+        return ()=>{
+            console.log("This will be called on when component will be unmounted");
+        };
+    },[]);
 
         // constructor(props)
         // {
