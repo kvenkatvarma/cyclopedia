@@ -35,6 +35,21 @@ componentWillUnmount()
     console.log("Component Will Unmount");
 
 }
+handleAddStudent=()=>{
+    this.setState((prevstate)=>{
+        return{
+            studentCount : prevstate.studentCount + 1,
+        }
+    })
+}
+
+handleRemoveAllStudent=()=>{
+    this.setState((prevstate)=>{
+        return{
+            studentCount : 0,
+        }
+    })
+}
 render(){
     console.log("render component");
     return(
@@ -50,6 +65,12 @@ render(){
 
             </div>
         )}
+        <div className="p-3">
+        <span className="h4 text-success">Students &nbsp;</span>
+              <div>Student Count: {this.state.studentCount}</div>
+              <button className="btn btn-success btn-sm" onClick={this.handleAddStudent}>Add Student</button> &nbsp;
+              <button className="btn btn-danger btn-sm" onClick={this.handleRemoveAllStudent}>Remove All Students</button>
+        </div>
     </div>
     );
 }
