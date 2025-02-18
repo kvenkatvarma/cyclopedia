@@ -28,6 +28,19 @@ const CycloPediaFuncPage =()=>{
 
     useEffect(()=>{
         console.log("This will be called on initial/first render/mount");
+        const getUser = async()=>{
+            const response = await getRandomUser();
+            setState((prevstate)=>{
+                return{...prevstate,
+                    instructor:{
+                        name: response.data.first_name + " " + response.data.last_name,
+                        email: response.data.email,
+                        phone: response.data.phone_number,
+                    }
+                }
+            }) 
+        }  ;
+        getUser(); 
     },[]);
 
     useEffect(()=>{
