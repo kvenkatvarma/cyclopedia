@@ -9,7 +9,9 @@ class CycloPediaClassPage extends React.Component{
                 instructor: undefined,
                 studentList:[],
                 studentCount:0,
-                hideInstructor : false
+                hideInstructor : false,
+                inputName: "",
+                inputFeedback:""
             };
         }
 componentDidMount=async()=>
@@ -65,6 +67,11 @@ render(){
 
             </div>
         )}
+        <div className="p-3">
+            <span className="h4 text-success">Feedback &nbsp;</span><br/>
+            <input type="text" value={this.state.inputName} onChange={(e)=>{this.setState({inputName : e.target.value})}} placeholder="Name.."/> <br/>
+            <textarea placeholder="Feedback.." value={this.state.inputFeedback} onChange={(e)=>{this.setState({inputFeedback : e.target.value})}}/>
+        </div>
         <div className="p-3">
         <span className="h4 text-success">Students &nbsp;</span>
               <div>Student Count: {this.state.studentCount}</div>
