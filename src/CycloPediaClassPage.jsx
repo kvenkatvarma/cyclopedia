@@ -59,14 +59,26 @@ handleRemoveAllStudent=()=>{
             studentCount : 0,
         }
     })
+};
+handletoggleInstructor =()=>{
+    this.setState((prevstate)=>{
+        return{
+            hideInstructor : !prevstate.hideInstructor,
+        }
+    })
 }
 render(){
     console.log("render component");
     return(
     <div>
-        {this.state.instructor && (
+        <div className="p-3">
+            <span className="h4 text-success">Instructor &nbsp;</span>
+            <i className={`bi ${this.state.hideInstructor ? "bi-toggle-off" : "bi-toggle-on"}  btn btn-success btn-sm`} onClick={this.handletoggleInstructor}></i>
+            {!this.state.hideInstructor ? (
            <Instructor instructor ={this.state.instructor}/>
-        )}
+        ):null}
+        </div>
+       
         <div className="p-3">
             <span className="h4 text-success">Feedback &nbsp;</span><br/>
             <input type="text" value={this.state.inputName} onChange={(e)=>{this.setState({inputName : e.target.value})}} placeholder="Name.."/> <br/>
