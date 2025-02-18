@@ -35,10 +35,30 @@ componentDidMount=async()=>
     }) 
 }  
 }
-componentDidUpdate(){
+componentDidUpdate = async(previousProps,previousState)=>{
     console.log("Component Did Update");
     localStorage.setItem("cyclopediaState",JSON.stringify(this.state));
-
+    if(previousState.studentCount < this.state.studentCount)
+    {
+        const response = await getRandomUser();
+        this.setState((prevState)=>{
+            return{
+                studentList :[
+                    ...prevState.studentList,{
+                        name: response.data.first_name + " " + response.data.last_name,
+                    }
+                ]
+            }
+        })
+    }
+    else if(previousState.studentCount > this.state.studentCount)
+    {
+        this.setState((prevState)=>{
+            return{
+                studentList :[],
+            }
+        })
+    }
 }
 componentWillUnmount()
 {
@@ -89,6 +109,13 @@ render(){
               <div>Student Count: {this.state.studentCount}</div>
               <button className="btn btn-success btn-sm" onClick={this.handleAddStudent}>Add Student</button> &nbsp;
               <button className="btn btn-danger btn-sm" onClick={this.handleRemoveAllStudent}>Remove All Students</button>
+              {
+                this.state.studentList.map((student,index)=>{
+                    return(
+                        <div className="text-white" key={index}> - {student.name}</div>
+                    )
+                })
+              }
         </div>
     </div>
     );
